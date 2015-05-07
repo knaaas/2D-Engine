@@ -26,3 +26,6 @@
 *.exe
 *.out
 *.app
+
+# Desktop Services Store sometimes created by OS X
+*.DS_Store
