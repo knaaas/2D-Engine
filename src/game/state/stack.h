@@ -1,4 +1,3 @@
-#pragma once
 #ifndef STATE_STACK_H
 #define STATE_STACK_H
 
@@ -8,13 +7,13 @@
 
 #include "state.h"
 
-namespace state{
-	class cstack{
+namespace State{
+	class CStack{
 		public:
-			virtual void run( cstate& state );
+			virtual void Run( CState& state );
 		private:
-			std::stack<cstate*> m_state;
+			std::stack<CState*> m_state;
 	};
 }
 
-#endif //STATE_STACK_H
+#endif // STATE_STACK_H

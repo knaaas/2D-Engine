@@ -1,10 +1,10 @@
 #include "stack.h"
 
-namespace state
+namespace State
 {
-	void cstack::run( cstate& state ){
+	void CStack::Run( CState& state ){
 						
-		cstate *active = &state;
+		CState *active = &state;
 		LOG("state::cstack::run - begin" );
 		
 		//If there are any sub states
@@ -12,7 +12,7 @@ namespace state
 		
 			LOG("Running active: " << active );	
 			//Run it and grab next sub state
-			cstate *sub_state = active->run();
+			CState *sub_state = active->Run();
 			
 			//If any substate. Push the current state
 			if( sub_state ){

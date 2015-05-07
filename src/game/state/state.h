@@ -1,21 +1,20 @@
-#pragma once
 #ifndef STATE_H
 #define STATE_H
 
 #include "debug.h"
 
-namespace state
+namespace State
 {
-	class cstate{
+	class CState{
 		public:
-			virtual ~cstate(){}
-			virtual cstate* run() = 0;
+			virtual ~CState(){}
+			virtual CState* Run() = 0;
 	};
 	
-	class cengine{
+	class CEngine{
 		public:
-			virtual void run( cstate& state ) = 0;
+			virtual void Run( CState& state ) = 0;
 	};
 }
 
-#endif //STATE_H
+#endif // STATE_H

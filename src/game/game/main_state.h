@@ -1,4 +1,3 @@
-#pragma once
 #ifndef GAME_MAIN_STATE_H
 #define GAME_MAIN_STATE_H
 
@@ -9,34 +8,33 @@
 #include "../state/state.h"
 #include "../gui/menu.h"
 
-namespace game
+namespace Game
 {
-	enum emenu_state : size_t
+	enum EMenuState : size_t
 	{
 		menu_play,
 		menu_help,
 		menu_exit
 	};
 	
-	class cmain_state : public state::cstate
+	class CMainState : public State::CState
 	{
 	public:
-		cmain_state();
-		virtual ~cmain_state();
+		CMainState();
+		virtual ~CMainState();
 		
 		/*
 			Called by state engine. 
 			Returns next state.
 		*/
-		virtual state::cstate* run();
+		virtual State::CState* Run();
 	
 	private:
+		CRunState *p_run_state;
 		
-		crun_state *p_run_state;
-		
-		const emenu_state _read_menu_input();
-		state::cstate*  _return_sub_state( const emenu_state& state );
-		state::cstate*  _return_run_state();
+		const EMenuState _ReadMenuInput();
+		State::CState*  _ReturnSubState( const EMenuState& state );
+		State::CState*  _ReturnRunState();
 	};
 }
-#endif //GAME_MAIN_STATE_H
+#endif // GAME_MAIN_STATE_H

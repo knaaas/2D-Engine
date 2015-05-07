@@ -1,21 +1,21 @@
 #include "run_state.h"
 
-namespace game
+namespace Game
 {
-	crun_state::crun_state()
+	CRunState::CRunState()
 	{
 	}
 	
-	crun_state::~crun_state()
+	CRunState::~CRunState()
 	{
 	}
 			
-	void crun_state::initialize( void )
+	void CRunState::Initialize( void )
 	{
 	
 	}
 			
-	state::cstate* crun_state::run()
+	State::CState* CRunState::Run()
 	{
 	
 		//Run the game here..

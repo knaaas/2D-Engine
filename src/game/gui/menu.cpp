@@ -1,15 +1,15 @@
 #include "menu.h"
 
-namespace gui
+namespace GUI 
 {
-	cmenu::cmenu( const char *options[], const size_t count )
+	CMenu::CMenu( const char *options[], const size_t count )
 	: p_options( options )
 	, m_count( count )
 	{
 		
 	}
 	
-	size_t cmenu::result( )
+	size_t CMenu::Result( )
 	{
 		size_t option = m_count+1; 
 	

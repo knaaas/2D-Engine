@@ -1,28 +1,26 @@
-#pragma once
 #ifndef GAME_RUN_STATE_H
 #define GAME_RUN_STATE_H
 
 #include <vector>
 #include <cassert>
 
-
 #include "../state/state.h"
 
-namespace game
+namespace Game
 {
-	class crun_state : public state::cstate
+	class CRunState : public State::CState
 	{
 		public:
-			crun_state();
-			virtual ~crun_state();
+			CRunState();
+			virtual ~CRunState();
 
-			void initialize( void );
+			void Initialize( void );
 			
-			virtual state::cstate* run();
+			virtual State::CState* Run();
 			
 		private:
 			
 	};
 }
 
-#endif //GAME_RUN_STATE_H
+#endif // GAME_RUN_STATE_H

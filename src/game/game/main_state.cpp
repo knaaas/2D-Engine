@@ -1,6 +1,6 @@
 #include "main_state.h"
 
-namespace game
+namespace Game
 {
 	const char *emenu_option[] = {
 		"play",
@@ -8,41 +8,41 @@ namespace game
 		"exit"
 	};
 	
-	cmain_state::cmain_state() 
+	CMainState::CMainState() 
 	{
-		p_run_state = new crun_state();
+		p_run_state = new CRunState();
 		assert( p_run_state );
 	}
 	
-	cmain_state::~cmain_state()
+	CMainState::~CMainState()
 	{
 		delete p_run_state;
 	}
 	
-	state::cstate* cmain_state::run()
+	State::CState* CMainState::Run()
 	{
 		
 		//Read selected menu option
-		const emenu_state state( _read_menu_input() );
+		const EMenuState state( _ReadMenuInput() );
 		
 		//Return the state of given menu option
-		return _return_sub_state( state );
+		return _ReturnSubState( state );
 	}
 	
-	const emenu_state cmain_state::_read_menu_input()
+	const EMenuState CMainState::_ReadMenuInput()
 	{
-		gui::cmenu menu( emenu_option, 3 );
-		const emenu_state state = static_cast<const emenu_state>(  menu.result() );
+		GUI::CMenu menu( emenu_option, 3 );
+		const EMenuState state = static_cast<const EMenuState>(  menu.Result() );
 		return state;
 	}
 	
-	state::cstate* cmain_state::_return_sub_state( const emenu_state& state )
+	State::CState* CMainState::_ReturnSubState( const EMenuState& state )
 	{
 		
 		switch( state )
 		{
 			case menu_play:
-				return _return_run_state( ); 
+				return _ReturnRunState( ); 
 			case menu_help:{
 				std::cout << "cmain_state - help not implemented." << std::endl;
 				return nullptr;
@@ -54,9 +54,9 @@ namespace game
 		return nullptr;
 	}
 	
-	state::cstate* cmain_state::_return_run_state()
+	State::CState* CMainState::_ReturnRunState()
 	{
-		p_run_state->initialize( );
+		p_run_state->Initialize( );
 		return p_run_state;
 	}
 	
