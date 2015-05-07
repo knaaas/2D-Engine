@@ -5,18 +5,26 @@
 
 namespace Engine
 {
+	enum EDrawMode : GLenum 
+	{
+		Points = GL_POINTS
+	};
+	
 	template <typename T>
 	class CGPUInstance
 	{
 		public:
 			CGPUInstance();
 			~CGPUInstance();
+		
+			void Enable( CGPUStorage<T>* storage, bool instanced = false, GLuint devisor = 0 );
 			
-			template <typename T>
-			void Enable( CGPUStorage<T> *Storage );
+			void Render( EDrawMode mode, GLint count );
 			
-			void Render( GLint count );
+		private:
+			GLuint m_gpu_vertexarray;
 	};
+	#include "instance.hpp"
 }
 
 #endif //ENGINE_GPU_INSTANCE_H

@@ -1,6 +1,8 @@
 #ifndef ENGINE_GPU_STORAGE_H
 #define ENGINE_GPU_STORAGE_H
 
+#include <cstring>
+
 #include <GL/glew.h>
 
 namespace Engine
@@ -12,14 +14,21 @@ namespace Engine
 			CGPUStorage();
 			~CGPUStorage();
 			
+			//Size in elements of T
+			size_t Size();
+			
 			//Upload memory to GPU
-			void upload( T* src , size_t size, size_t offset = 0 );
+			void Upload( T* src , size_t size );
+			
+			//Enables vertex array in Opengl. Should be private? 
+			void Attribute( bool instanced = false, GLuint devisor =  0);
 			
 		private:
 			
 			GLuint m_gpu_buffer_id;
 			GLuint m_gpu_buffer_byte_size;
 	};
+	#include "storage.hpp"
 }
 
 #endif //ENGINE_GPU_STORAGE_H
