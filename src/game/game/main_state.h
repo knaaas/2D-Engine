@@ -32,9 +32,9 @@ namespace Game
 	private:
 		CRunState *p_run_state;
 		
-		const EMenuState _ReadMenuInput();
-		State::CState*  _ReturnSubState( const EMenuState& state );
-		State::CState*  _ReturnRunState();
+		const EMenuState ReadMenuInput();
+		State::CState*  ReturnSubState( const EMenuState& state );
+		State::CState*  ReturnRunState();
 	};
 }
 #endif // GAME_MAIN_STATE_H

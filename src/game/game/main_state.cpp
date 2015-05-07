@@ -21,28 +21,27 @@ namespace Game
 	
 	State::CState* CMainState::Run()
 	{
-		
 		//Read selected menu option
-		const EMenuState state( _ReadMenuInput() );
+		const EMenuState state( ReadMenuInput() );
 		
 		//Return the state of given menu option
-		return _ReturnSubState( state );
+		return ReturnSubState( state );
 	}
 	
-	const EMenuState CMainState::_ReadMenuInput()
+	const EMenuState CMainState::ReadMenuInput()
 	{
 		GUI::CMenu menu( emenu_option, 3 );
 		const EMenuState state = static_cast<const EMenuState>(  menu.Result() );
 		return state;
 	}
 	
-	State::CState* CMainState::_ReturnSubState( const EMenuState& state )
+	State::CState* CMainState::ReturnSubState( const EMenuState& state )
 	{
-		
+	std::cout << state;
 		switch( state )
 		{
 			case menu_play:
-				return _ReturnRunState( ); 
+				return ReturnRunState( ); 
 			case menu_help:{
 				std::cout << "cmain_state - help not implemented." << std::endl;
 				return nullptr;
@@ -54,10 +53,9 @@ namespace Game
 		return nullptr;
 	}
 	
-	State::CState* CMainState::_ReturnRunState()
+	State::CState* CMainState::ReturnRunState()
 	{
 		p_run_state->Initialize( );
 		return p_run_state;
 	}
-	
 }
