@@ -1,0 +1,31 @@
+Header Guards:
+#ifndef FOO_BAR_H
+#define FOO_BAR_H
+
+#endif  // FOO_BAR_H
+
+Variable Names:
+	int foo_bar;
+
+Functions:
+	void DeleteFile();
+
+Variable  Prefix
+	p_ // Pointers
+	m_ // Class data members
+
+Constants
+	const float PI = 3.14; 
+
+	enum MemoryErrors 
+	{
+		OUT_OF_MEMORY = 1,
+		SEGMENT_FAULT = 2
+	};
+
+Namespace:
+namespace mynamespace 
+{
+
+}
+
