@@ -8,9 +8,10 @@ EXECUTABLE = game.out
 all: $(SOURCES) $(EXECUTABLE)
 	    
 $(EXECUTABLE): $(OBJECTS) 
-	    $(CC) $(OBJECTS) -o $@
+	$(CC) $(OBJECTS) -o $@
 
 .cpp.o:
-	    $(CC) $(LDFLAGS) $(CFLAGS) $< -o $@
+	$(CC) $(LDFLAGS) $(CFLAGS) $< -o $@
+
 clean:
 	rm -r *.o
