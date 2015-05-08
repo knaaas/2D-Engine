@@ -11,9 +11,11 @@ namespace State
 		while( active_state ){
 		
 			LOG("Running active state: " << active_state );	
-			//Run state and grab next sub state
-			/*THIS IS BAD! What if a stupid developer write a state that does no return 
-			a nullptr or a state */
+			/*
+			  Run state and grab next sub state
+			  THIS IS BAD! What if a stupid developer write a state that does no return 
+			  a nullptr or a state
+			*/
 			CState* sub_state = active_state->Run();
 			
 			//If any sub state. Push the current state
