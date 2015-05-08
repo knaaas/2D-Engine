@@ -3,12 +3,6 @@ CGPURenderer<T>::CGPURenderer()
 {
 	
 }
-
-template <typename T>			
-void CGPURenderer<T>::Initialize( Material::CMaterial *material )
-{
-	material->InitializeProgram( m_program );
-}
 			
 template <typename T>			
 void CGPURenderer<T>::Enable()
@@ -19,11 +13,25 @@ void CGPURenderer<T>::Enable()
 template <typename T>
 void CGPURenderer<T>::Disable()
 {
-	m_program.Disable();
+	m_program.UnBind();
+}
+
+
+			
+template <typename T>
+CProgram& CGPURenderer<T>::Program()
+{
+	return m_program;
 }
 
 template <typename T>
-void CGPURenderer<T>::Render( CGPUInstance<T> * instance, GLuint count )
+const CProgram& CGPURenderer<T>::Program() const
 {
-	instance->render( count );
+	return m_program;
+}
+
+template <typename T>
+void CGPURenderer<T>::Render( CGPUInstance<T> * instance, EDrawMode mode, GLuint count )
+{
+	instance->Render( mode, count );
 }
