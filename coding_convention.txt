@@ -23,8 +23,30 @@ Constants
 		SEGMENT_FAULT = 2
 	};
 
+Class: 
+	C<ClassName>
+	
+	NOTE:
+	To prevent creating alot of namespaces in the engine folder, 
+	many classes will hint about their folder location in the 
+	class name. 
+	
+	etc.
+	CGPUStorage in the /gpu folder.
+	CSCEInstance in the /scene folder. 
+	
+	
+Struct:
+	S<StructName>
+	
+	Note: 
+	Structs which will be used as pure data-objects won't
+	have variable prefix.  
+	
+	
+
 Namespace:
-namespace mynamespace 
+namespace MyNameSpace 
 {
 
 }
