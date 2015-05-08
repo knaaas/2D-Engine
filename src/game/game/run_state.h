@@ -4,6 +4,8 @@
 #include <vector>
 #include <cassert>
 
+#include <GLFW/glfw3.h>
+
 #include "../state/state.h"
 
 namespace Game
@@ -19,7 +21,7 @@ namespace Game
 			virtual State::CState::SReturn Run();
 			
 		private:
-			
+			GLFWwindow* m_window;
 	};
 }
 
