@@ -14,7 +14,7 @@ namespace Engine
 	}
 				
 	template <typename T>
-	bool CSCEInstance::Initialize( CRenderer<T> *renderer )
+	bool CSCEInstance::Initialize( CGPURenderer<T> *renderer )
 	{
 		return p_camera->BindGPUProgram( renderer->m_program );
 	}

@@ -13,7 +13,7 @@ namespace Engine
 			~CSCEInstance();
 			
 			template <typename T>
-			bool Initialize( CRenderer<T> *renderer );
+			bool Initialize( CGPURenderer<T> *renderer );
 			
 			
 		private:
