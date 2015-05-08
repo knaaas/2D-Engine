@@ -8,6 +8,8 @@ namespace Game
 	
 	CRunState::~CRunState()
 	{
+		glfwDestroyWindow(window);
+		glfwTerminate();
 	}
 			
 	void CRunState::Initialize( void )
