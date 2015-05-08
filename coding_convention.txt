@@ -17,7 +17,7 @@ Variable  Prefix
 Constants
 	const float PI = 3.14; 
 
-	enum MemoryErrors 
+	enum EMemoryErrors 
 	{
 		OUT_OF_MEMORY = 1,
 		SEGMENT_FAULT = 2
