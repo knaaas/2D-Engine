@@ -25,6 +25,21 @@ namespace Game
 		private:
 			GLFWwindow* m_window;
 	};
+	
+	struct SSprite
+	{
+		glm::vec2 position;
+		glm::vec2 size;
+		
+		static void Attribute( bool instanced, GLuint devisor );
+	};
+
+
+
+	
+	typedef Engine::CGPUStorage< SSprite >  GPUSpriteStorage;
+typedef Engine::CGPUInstance< SSprite > GPUSpriteInstance;
+typedef	Engine::CGPURenderer< SSprite > GPUSpriteRenderer;
 }
 
 #endif // GAME_GAME_H
