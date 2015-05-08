@@ -40,6 +40,7 @@ namespace Engine
 			
 			
 			//NO, DON'T USE THEM. WILL BE REMOVED!
+			//But I like them :(
 			CProgram& Program();
 			const CProgram& Program() const;
 			
