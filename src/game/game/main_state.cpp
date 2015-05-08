@@ -12,6 +12,10 @@ namespace Game
 	{
 		p_run_state = new CRunState();
 		assert( p_run_state );
+		
+		glewExperimental = GL_TRUE;
+		if (glewInit() != GLEW_OK)
+			std::cerr << "ERROR: main_state glewInit() failed" << std::endl;
 	}
 	
 	CMainState::~CMainState()

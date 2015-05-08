@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include <gl/glew.h>
+
 #include "run_state.h"
 
 #include "../state/state.h"
