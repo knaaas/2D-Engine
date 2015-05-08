@@ -1,8 +1,6 @@
 #ifndef GAME_RUN_STATE_H
 #define GAME_RUN_STATE_H
 
-#include <GLFW/glfw3.h>
-
 #include "game.h"
 #include "../state/state.h"
 
@@ -19,7 +17,6 @@ namespace Game
 			virtual State::CState::SReturn Run();
 			
 		private:
-			GLFWwindow* m_window;
 	};
 }
 

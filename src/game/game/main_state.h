@@ -1,10 +1,6 @@
 #ifndef GAME_MAIN_STATE_H
 #define GAME_MAIN_STATE_H
 
-#include <iostream>
-
-#include <gl/glew.h>
-
 #include "run_state.h"
 
 #include "../state/state.h"
