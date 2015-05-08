@@ -37,7 +37,6 @@ namespace Game
 	
 	State::CState* CMainState::ReturnSubState( const EMenuState& state )
 	{
-	std::cout << state;
 		switch( state )
 		{
 			case menu_play:
