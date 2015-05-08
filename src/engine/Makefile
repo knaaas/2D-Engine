@@ -6,6 +6,15 @@ SOURCES = test.cpp gpu/shader.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = out
 
+ifdef SystemRoot 
+#Windows assumed
+	RM = del /Q/F
+	FixPath = $(subst /,\,$1)
+else 
+#OS X or Linux assumed
+	RM = rm -f
+	FixPath = $1
+endif
 	
 all: $(SOURCES) $(EXECUTABLE)
 	
@@ -16,7 +25,4 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm $(OBJECTS)
-	
-
-	
+	$(RM) $(call FixPath,$(OBJECTS))
