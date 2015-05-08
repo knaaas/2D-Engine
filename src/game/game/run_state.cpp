@@ -8,7 +8,7 @@ namespace Game
 	
 	CRunState::~CRunState()
 	{
-		glfwDestroyWindow(window);
+		glfwDestroyWindow(m_window);
 		glfwTerminate();
 	}
 			
