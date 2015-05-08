@@ -1,9 +1,6 @@
 #ifndef GAME_RUN_STATE_H
 #define GAME_RUN_STATE_H
 
-#include <vector>
-#include <cassert>
-
 #include <GLFW/glfw3.h>
 
 #include "game.h"
