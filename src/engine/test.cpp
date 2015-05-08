@@ -72,6 +72,7 @@ int main( int args, char *argv[])
 	//End of platform init code
 
 	const GLchar FragmentSource[] = {
+		"#version 330 core							  \n"
 		"out vec4 fcolor;							  \n"
 		"void main(){  							      \n"
 		"	fcolor = vec4( 1,0,0,0);				  \n"
