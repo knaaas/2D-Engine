@@ -16,7 +16,8 @@ namespace Engine
 		instance, but garanties that the data will be of T-type. This 
 		maybe changed in the future. 
 		
-		The "Program" functions will removed in near future. Don't make use of  
+		The "Program" functions will removed in near future. 
+		Don't use them.    
 	*/
 	
 	template <typename T>
@@ -38,7 +39,7 @@ namespace Engine
 			void Render( CGPUInstance<T> * instance, EDrawMode mode, GLuint count );
 			
 			
-			
+			//NO, DON'T USE THEM. WILL BE REMOVED!
 			CProgram& Program();
 			const CProgram& Program() const;
 			
