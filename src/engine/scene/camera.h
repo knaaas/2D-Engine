@@ -1,0 +1,48 @@
+#ifndef ENGINE_SCENE_CAMERA_H
+#define ENGINE_SCENE_CAMERA_H
+
+#include <glm/glm.hpp>
+
+#include "../gpu/state.h"
+#include "../gpu/shader.h"
+
+namespace Engine
+{
+	class CSCECamera
+	{
+		private:
+			struct SCamera
+			{
+				glm::vec2 position;
+				float 	  zoom;
+			};
+			
+			SCamera m_state;
+			CGPUState<SCamera> m_gpu_state;
+			
+		public:
+			
+			/**
+				Tries to bind "sce_camera" uniform block
+				in program to the camera buffer. 
+			**/
+			bool BindGpuProgram(CProgram* program, GLuint location);
+			
+			
+			/**
+				Update camera GPU buffer. 
+				Should be done before rendering. 
+			**/
+			void UpdateGpuBuffer();
+			
+			
+			
+			glm::vec2& Position();
+			const glm::vec2& Position() const;
+			
+			float& Zoom();
+			const float& Zoom() const;
+	}
+}
+
+#endf //ENGINE_SCENE_CAMERA_H

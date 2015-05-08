@@ -5,10 +5,21 @@
 
 namespace State
 {
-	class CState{
+	class CState
+	{
 		public:
+			/*
+				Wrapper for preventing CState from returning 
+				bad pointer. 
+			*/
+			struct SReturn
+			{
+				CState *ret;
+				SReturn( CState *state = nullptr ) : ret( state ){}
+			};
+			
 			virtual ~CState(){}
-			virtual CState* Run() = 0;
+			virtual SReturn Run() = 0;
 	};
 	
 	class CEngine{

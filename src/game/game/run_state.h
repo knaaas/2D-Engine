@@ -16,7 +16,7 @@ namespace Game
 
 			void Initialize( void );
 			
-			virtual State::CState* Run();
+			virtual State::CState::SReturn Run();
 			
 		private:
 			

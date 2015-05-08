@@ -27,7 +27,7 @@ namespace Game
 			Called by state engine. 
 			Returns next state.
 		*/
-		virtual State::CState* Run();
+		virtual State::CState::SReturn Run();
 	
 	private:
 		CRunState *p_run_state;

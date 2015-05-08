@@ -19,13 +19,13 @@ namespace Game
 		delete p_run_state;
 	}
 	
-	State::CState* CMainState::Run()
+	State::CState::SReturn CMainState::Run()
 	{
 		//Read selected menu option
 		const EMenuState state( ReadMenuInput() );
 		
 		//Return the state of given menu option
-		return ReturnSubState( state );
+		return State::CState::SReturn( ReturnSubState(state) );
 	}
 	
 	const EMenuState CMainState::ReadMenuInput()
