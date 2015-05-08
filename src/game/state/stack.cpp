@@ -15,8 +15,10 @@ namespace State
 			  Run state and grab next sub state
 			  THIS IS BAD! What if a stupid developer write a state that does no return 
 			  a nullptr or a state
+			  FIXED! 
 			*/
-			CState* sub_state = active_state->Run();
+			CState::SReturn state = active_state->Run();
+			CState* sub_state = state.ret; 
 			
 			//If any sub state. Push the current state
 			if( sub_state ){

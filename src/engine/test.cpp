@@ -4,9 +4,11 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "gpu/state.h"
 #include "gpu/shader.h"
 #include "gpu/storage.h"
 #include "gpu/instance.h"
+#include "gpu/renderer.h"
 
 
 struct SSprite
@@ -15,7 +17,6 @@ struct SSprite
 	glm::vec2 size;
 	
 	static void Attribute( bool instanced, GLuint devisor );
-	
 };
 
 void SSprite::Attribute( bool instanced, GLuint devisor )
@@ -31,8 +32,11 @@ void SSprite::Attribute( bool instanced, GLuint devisor )
 		glVertexAttribDivisor( 1, devisor );
 }
 
-typedef Engine::CGPUStorage< SSprite > GPUSpriteStorage;
+
+typedef Engine::CGPUStorage< SSprite >  GPUSpriteStorage;
 typedef Engine::CGPUInstance< SSprite > GPUSpriteInstance;
+typedef	Engine::CGPURenderer< SSprite > GPUSpriteRenderer;
+
 
 int main( int args, char *argv[])
 {
@@ -67,6 +71,13 @@ int main( int args, char *argv[])
 	
 	//End of platform init code
 
+	const GLchar FragmentSource[] = {
+		"out vec4 fcolor;							  \n"
+		"void main(){  							      \n"
+		"	fcolor = vec4( 1,0,0,0);				  \n"
+		"}											  \n" 
+	};
+	
 	const GLchar VertexSource[] = {
 		"#version 330 core							  \n"
 		"layout(location = 0) in vec2 in_position;    \n"
@@ -76,12 +87,7 @@ int main( int args, char *argv[])
 		"}											  \n" 
 	};
 	
-	const GLchar FragmentSource[] = {
-		"out vec4 fcolor;							  \n"
-		"void main(){  							      \n"
-		"	fcolor = vec4( 1,0,0,0);				  \n"
-		"}											  \n" 
-	};
+	
 	
 	Engine::CShader VertexShader( Engine::VertexShader );
 	if( !VertexShader.Compile( VertexSource ) ){
@@ -101,17 +107,34 @@ int main( int args, char *argv[])
 		std::cout << SpriteProgram.Log() << std::endl;
 	}
 	
+	//Engine::CSCECamera Camera;
+	//Engine::CSCEInstance Instance( &Camera );
+	
 	
 	const size_t sprite_count = 128;
 	SSprite *SpritesOfGods = new SSprite[sprite_count];
 	for( size_t i = 0; i < sprite_count; i++ )
 		SpritesOfGods[i].position = glm::vec2( 0,0 );
 	
-	GPUSpriteStorage *SpriteStorage = new GPUSpriteStorage();
-	GPUSpriteInstance *SpriteInstance = new GPUSpriteInstance();
+	GPUSpriteStorage*  SpriteStorage  = new GPUSpriteStorage();
+	GPUSpriteInstance* SpriteInstance = new GPUSpriteInstance();
+	GPUSpriteRenderer* SpriteRenderer = new GPUSpriteRenderer();
 	
+	SpriteRenderer->Program().Attach( &VertexShader   );
+	SpriteRenderer->Program().Attach( &FragmentShader );
+	if( !SpriteRenderer->Program().Link())
+	{
+		std::cout << SpriteRenderer->Program().Log() << std::endl;
+	}
+	
+	
+	//Upload sprites.... 
 	SpriteStorage->Upload( SpritesOfGods, sprite_count );
+	
+	//Enable the sprites in an instance
 	SpriteInstance->Enable( SpriteStorage );
+
+	
 	
 	
 	glPointSize( 10.0f );
@@ -122,9 +145,11 @@ int main( int args, char *argv[])
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-		SpriteProgram.Bind();
-		SpriteInstance->Render( Engine::Points, SpriteStorage->Size() );
-		SpriteProgram.UnBind();
+		
+		SpriteRenderer->Enable( );
+			SpriteRenderer->Render( SpriteInstance, Engine::Points, SpriteStorage->Size() );
+		SpriteRenderer->Disable( );
+		
 		
 		glfwSwapBuffers(window);
         glfwPollEvents();

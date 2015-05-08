@@ -17,7 +17,7 @@ namespace Engine
 			//Size in elements of T
 			size_t Size();
 			
-			//Upload memory to GPU
+			//Upload memory to GPU, size is not byte-size. It's n of T!
 			void Upload( T* src , size_t size );
 			
 			//Enables vertex array in Opengl. Should be private? 

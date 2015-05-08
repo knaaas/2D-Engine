@@ -15,10 +15,10 @@ namespace Game
 	
 	}
 			
-	State::CState* CRunState::Run()
+	State::CState::SReturn CRunState::Run()
 	{
 	
 		//Run the game here..
-		return nullptr;
+		return State::CState::SReturn();
 	}
 }
