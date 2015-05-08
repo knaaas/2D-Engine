@@ -1,5 +1,4 @@
 #include "menu.h"
-#include <algorithm>
 namespace GUI 
 {
 	CMenu::CMenu( const char *options[], const size_t count )
