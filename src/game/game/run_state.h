@@ -4,12 +4,15 @@
 #include "game.h"
 #include "../state/state.h"
 
+#include "../../engine/platform/platform.h"
+
+
 namespace Game
 {
 	class CRunState : public State::CState
 	{
 		public:
-			CRunState();
+			CRunState(Engine::CPlatform *platform);
 			virtual ~CRunState();
 
 			void Initialize( void );
@@ -17,6 +20,7 @@ namespace Game
 			virtual State::CState::SReturn Run();
 			
 		private:
+			Engine::CPlatform *p_platform;
 			CGame m_game;
 	};
 }

@@ -14,6 +14,9 @@
 #include "../../engine/gpu/instance.h"
 #include "../../engine/gpu/renderer.h"
 
+#include "../../engine/platform/platform.h"
+
+
 namespace Game
 {
 	class CGame
@@ -22,13 +25,9 @@ namespace Game
 			CGame();
 			~CGame();
 			
-			bool Initialize( int width, int height, const char *title, bool fullscreen = false );
-			
-			void Run();
+			void Run(Engine::CPlatform* platform);
 			
 		private:
-			GLFWwindow* m_window;
-			bool m_glfw_init_state;
 	};
 	
 	struct SSprite

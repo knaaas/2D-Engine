@@ -2,8 +2,10 @@
 
 namespace Game
 {
-	CRunState::CRunState()
+	CRunState::CRunState(Engine::CPlatform *platform)
+	: p_platform( platform )
 	{
+		assert( p_platform );
 	}
 	
 	CRunState::~CRunState()
@@ -12,14 +14,15 @@ namespace Game
 			
 	void CRunState::Initialize( void )
 	{
-		m_game.Initialize( 800, 600, "GameWindow", false );
 
 	}
 			
 	State::CState::SReturn CRunState::Run()
 	{
 		//Run the game here..
-		m_game.Run();
+		p_platform->CreateWindow( 800, 600, "Game", false );
+		m_game.Run( p_platform );
+		p_platform->DestroyWindow();
 		return State::CState::SReturn();
 	}
 }

@@ -4,11 +4,11 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "gpu/state.h"
-#include "gpu/shader.h"
-#include "gpu/storage.h"
-#include "gpu/instance.h"
-#include "gpu/renderer.h"
+#include "../gpu/state.h"
+#include "../gpu/shader.h"
+#include "../gpu/storage.h"
+#include "../gpu/instance.h"
+#include "../gpu/renderer.h"
 
 
 struct SSprite

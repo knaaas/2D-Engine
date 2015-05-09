@@ -13,8 +13,9 @@ namespace Game
 	
 	CMainState::CMainState() 
 	{
-		p_run_state = new CRunState();
+		p_run_state = new CRunState( &m_platform );
 		assert( p_run_state );
+		
 	}
 	
 	CMainState::~CMainState()

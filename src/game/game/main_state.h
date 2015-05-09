@@ -6,6 +6,8 @@
 #include "../state/state.h"
 #include "../gui/menu.h"
 
+#include "../../engine/platform/platform.h"
+
 namespace Game
 {
 	enum EMenuState : size_t
@@ -28,6 +30,7 @@ namespace Game
 		virtual State::CState::SReturn Run();
 	
 	private:
+		Engine::CPlatform m_platform;
 		CRunState *p_run_state;
 		
 		const EMenuState ReadMenuInput();

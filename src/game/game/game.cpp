@@ -3,65 +3,18 @@
 namespace Game
 {
 	CGame::CGame()
-	: m_window( nullptr )
-	, m_glfw_init_state( false )
 	{
 		
 	}
 	
 	CGame::~CGame()
 	{
-		if( m_glfw_init_state ){
-			
-			if( m_window )
-				glfwDestroyWindow(m_window);
-			
-			glfwTerminate();
-		}
+		
 	}
-	
-	bool CGame::Initialize( int width, int height, const char *title, bool fullscreen )
-	{
-		
-		// GLFW Init
-		if(!glfwInit()){
-			std::cerr << "ERROR: CGame glfwInit() failed" << std::endl;
-			return false;
-		}
-		
-		m_glfw_init_state = true;
-		
-		glfwWindowHint(GLFW_SAMPLES, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		
-		//Monitor required for fullscreen. 
-		GLFWmonitor* monitor = nullptr;
-		if( fullscreen )
-			monitor = glfwGetPrimaryMonitor();
-			
-		
-		if ((m_window = glfwCreateWindow(width, height, title, monitor, NULL)) == false){
-			std::cerr << "ERROR: CGame glfwCreateWindow() failed" << std::endl;
-			return false;
-		}
-		
-	
-		glfwMakeContextCurrent(m_window);
 
-		// OpenGL 3.3+ Init
-		glewExperimental = GL_TRUE;
-		if (glewInit() != GLEW_OK) {
-			std::cerr << "ERROR: CGame glewInit() failed" << std::endl;
-			return false;
-		}
-		return true;
-	}
-	
 	void SSprite::Attribute( bool instanced, GLuint devisor )
 	{
-		//index size type normalized stride starting_point 
+		//index size type normalized stride starting_offset
 		//cause I am stupid
 		
 		//position
@@ -83,7 +36,7 @@ namespace Game
 			glVertexAttribDivisor( 2, devisor );
 	}
 
-	void CGame::Run()
+	void CGame::Run(Engine::CPlatform* platform)
 	{
 		const GLchar VertexSource[] = {
 			"#version 330 core							  \n"
@@ -120,14 +73,6 @@ namespace Game
 		}
 		
 		
-		Engine::CProgram SpriteProgram;
-		SpriteProgram.Attach( &VertexShader );
-		SpriteProgram.Attach( &FragmentShader );
-		if( !SpriteProgram.Link())
-		{
-			std::cout << SpriteProgram.Log() << std::endl;
-		}
-		
 		
 		// Create and initialize sprites
 		const size_t sprite_count = 128;
@@ -144,6 +89,13 @@ namespace Game
 		GPUSpriteInstance* SpriteInstance = new GPUSpriteInstance();
 		GPUSpriteRenderer* SpriteRenderer = new GPUSpriteRenderer();
 		
+		SpriteRenderer->Program().Attach( &VertexShader );
+		SpriteRenderer->Program().Attach( &FragmentShader );
+		if( !SpriteRenderer->Program().Link())
+		{
+			std::cout << SpriteRenderer->Program().Log() << std::endl;
+		}
+		
 		//Upload sprites.... 
 		SpriteStorage->Upload( SpritesOfGods, sprite_count );
 		
@@ -152,20 +104,18 @@ namespace Game
 
 		
 		glPointSize( 10.0f );
-		while (!glfwWindowShouldClose(m_window))
+		while (!platform->Exit())
 		{
-			int width, height;
-			glfwGetFramebufferSize(m_window, &width, &height);
-			glViewport(0, 0, width, height);
+			Engine::CPlatform::SScreen Screen( platform->ScreenResolution() );
+			
+			glViewport(0, 0, Screen.width, Screen.height);
 			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-			SpriteProgram.Bind();
+			SpriteRenderer->Enable();
 				SpriteRenderer->Render( SpriteInstance, Engine::Points, SpriteStorage->Size() );
-			SpriteProgram.UnBind();
+			SpriteRenderer->Disable();
 			
-			
-			glfwSwapBuffers(m_window);
-			glfwPollEvents();
+			platform->Update();
 			
 		}
 	}
