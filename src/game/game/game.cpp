@@ -34,24 +34,36 @@ namespace Game
 	
 	void SSprite::Attribute( bool instanced, GLuint devisor )
 	{
+		//index size type normalized stride starting_point 
+		//cause I am stupid
+		
+		//position
 		glEnableVertexAttribArray( 0 );
 		glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, sizeof( SSprite ), 0 );
 		if( instanced )
 			glVertexAttribDivisor( 0, devisor );
 		
+		//size 
 		glEnableVertexAttribArray( 1 );
 		glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, sizeof( SSprite ), (const GLvoid*)sizeof( glm::vec2 ) );
+		if( instanced )
+			glVertexAttribDivisor( 1, devisor );
+		
+		//color
+		glEnableVertexAttribArray( 3 );
+		glVertexAttribPointer( 3, 3, GL_FLOAT, GL_FALSE, sizeof( SSprite ), (const GLvoid*)(2*sizeof( glm::vec2 )) );
 		if( instanced )
 			glVertexAttribDivisor( 1, devisor );
 	}
 
 	void CGame::Run()
 	{
-				const GLchar FragmentSource[] = {
+		const GLchar FragmentSource[] = {
 			"#version 330 core 							  \n"
+			"in vec2 in_color;							  \n"
 			"out vec4 fcolor;							  \n"
 			"void main(){  							      \n"
-			"	fcolor = vec4( 1,0,0,0);				  \n"
+			"	fcolor = vec4( in_color,0 );			  \n"
 			"}											  \n" 
 		};
 		
@@ -59,14 +71,17 @@ namespace Game
 			"#version 330 core							  \n"
 			"layout(location = 0) in vec2 in_position;    \n"
 			"layout(location = 1) in vec2 in_size; 	      \n"
+			"layout(location = 2) in vec3 in_color; 	  \n"
+			"     						  				  \n"
+			"out out_color; 	     					  \n"
+			"     						  				  \n"
 			"void main(){							      \n"
+			"	out_color = in_color                      \n"
 			"	gl_Position = vec4( in_position, 0, 1 );  \n"
 			"}											  \n" 
 		};
 		
-		
-		
-		Engine::CShader VertexShader( Engine::VertexShader );
+	 	Engine::CShader VertexShader( Engine::VertexShader );
 		if( !VertexShader.Compile( VertexSource ) ){
 			std::cout << VertexShader.Log() << std::endl;
 		}
@@ -76,6 +91,7 @@ namespace Game
 			std::cout << FragmentShader.Log() << std::endl;
 		}
 		
+		
 		Engine::CProgram SpriteProgram;
 		SpriteProgram.Attach( &VertexShader );
 		SpriteProgram.Attach( &FragmentShader );
@@ -84,26 +100,23 @@ namespace Game
 			std::cout << SpriteProgram.Log() << std::endl;
 		}
 		
-		//Engine::CSCECamera Camera;
-		//Engine::CSCEInstance Instance( &Camera );
 		
-		
+		// Create and initialize sprites
 		const size_t sprite_count = 128;
 		SSprite *SpritesOfGods = new SSprite[sprite_count];
-		for( size_t i = 0; i < sprite_count; i++ )
-			SpritesOfGods[i].position = glm::vec2( 0,0 );
+		for( size_t i = 0; i < sprite_count; i++ ) {
+			SpritesOfGods[i].position = glm::vec2( 
+				(float)( rand()%2000)/1000.0f - 1.0f, 
+				(float)( rand()%2000)/1000.0f - 1.0f );
+			SpritesOfGods[i].color = glm::vec3( 
+				(float)( rand()%2000)/1000.0f - 1.0f,
+				(float)( rand()%2000)/1000.0f - 1.0f,
+				(float)( rand()%2000)/1000.0f - 1.0f );
+		}
 		
 		GPUSpriteStorage*  SpriteStorage  = new GPUSpriteStorage();
 		GPUSpriteInstance* SpriteInstance = new GPUSpriteInstance();
 		GPUSpriteRenderer* SpriteRenderer = new GPUSpriteRenderer();
-		
-		SpriteRenderer->Program().Attach( &VertexShader   );
-		SpriteRenderer->Program().Attach( &FragmentShader );
-		if( !SpriteRenderer->Program().Link())
-		{
-			std::cout << SpriteRenderer->Program().Log() << std::endl;
-		}
-		
 		
 		//Upload sprites.... 
 		SpriteStorage->Upload( SpritesOfGods, sprite_count );
@@ -111,9 +124,7 @@ namespace Game
 		//Enable the sprites in an instance
 		SpriteInstance->Enable( SpriteStorage );
 
-		
-		
-		
+
 		glPointSize( 10.0f );
 		while (!glfwWindowShouldClose(m_window))
 		{
@@ -122,10 +133,9 @@ namespace Game
 			glViewport(0, 0, width, height);
 			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-			
-			SpriteRenderer->Enable( );
+			SpriteProgram.Bind();
 				SpriteRenderer->Render( SpriteInstance, Engine::Points, SpriteStorage->Size() );
-			SpriteRenderer->Disable( );
+			SpriteProgram.UnBind();
 			
 			
 			glfwSwapBuffers(m_window);

@@ -2,6 +2,7 @@
 #define GAME_GAME_H
 
 #include <iostream>
+#include <cstdlib>
 
 #include <gl/glew.h> 
 #include <GLFW/glfw3.h>
@@ -30,16 +31,14 @@ namespace Game
 	{
 		glm::vec2 position;
 		glm::vec2 size;
+		glm::vec3 color;
 		
 		static void Attribute( bool instanced, GLuint devisor );
 	};
 
-
-
-	
 	typedef Engine::CGPUStorage< SSprite >  GPUSpriteStorage;
-typedef Engine::CGPUInstance< SSprite > GPUSpriteInstance;
-typedef	Engine::CGPURenderer< SSprite > GPUSpriteRenderer;
+	typedef Engine::CGPUInstance< SSprite > GPUSpriteInstance;
+	typedef	Engine::CGPURenderer< SSprite > GPUSpriteRenderer;
 }
 
 #endif // GAME_GAME_H
