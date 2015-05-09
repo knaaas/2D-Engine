@@ -4,7 +4,7 @@ CFLAGS = -Wall -c -std=c++0x -g -I$(INCLUDE)
 CLIB = -lopengl32 -lglew32 -lglfw3
 SOURCES = main.cpp state/stack.cpp game/main_state.cpp game/run_state.cpp gui/menu.cpp game/game.cpp ../engine/gpu/shader.cpp ../engine/platform/platform.cpp 
 OBJECTS = $(SOURCES:.cpp=.o)
-EXECUTABLE = game.out
+EXECUTABLE = game
 
 ifdef SystemRoot 
 #Windows assumed
