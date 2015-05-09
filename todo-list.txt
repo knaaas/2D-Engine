@@ -2,3 +2,9 @@ This is a list of shit that needs to be done
 
 CGPUStorage upload data to offset in enabled GPU buffer please :)
 Nope, write to CPU memory and then upload it. 
+
+This is a list of shit that will be done in the engine.
+- Write material system( fragmentshader + related resources )
+- Figure out how correct vertex-shader at right moment should be done. impossible?
+- Move CGPURenderer, rename and make materials work with it. 
+
