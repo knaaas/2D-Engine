@@ -17,8 +17,8 @@ namespace Game
 	State::CState::SReturn CRunState::Run()
 	{
 		//Run the game here..
-		CGame game;
-		game.Run();
+		CGame Game;
+		Game.Run();
 		return State::CState::SReturn();
 	}
 }
