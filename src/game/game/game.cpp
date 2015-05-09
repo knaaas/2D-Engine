@@ -58,26 +58,27 @@ namespace Game
 
 	void CGame::Run()
 	{
-		const GLchar FragmentSource[] = {
-			"#version 330 core 							  \n"
-			"in vec2 in_color;							  \n"
-			"out vec4 fcolor;							  \n"
-			"void main(){  							      \n"
-			"	fcolor = vec4( in_color,0 );			  \n"
-			"}											  \n" 
-		};
-		
 		const GLchar VertexSource[] = {
 			"#version 330 core							  \n"
 			"layout(location = 0) in vec2 in_position;    \n"
 			"layout(location = 1) in vec2 in_size; 	      \n"
 			"layout(location = 2) in vec3 in_color; 	  \n"
 			"     						  				  \n"
-			"out out_color; 	     					  \n"
+			"out vec3 out_color 	     				  \n"
 			"     						  				  \n"
 			"void main(){							      \n"
-			"	out_color = in_color                      \n"
-			"	gl_Position = vec4( in_position, 0, 1 );  \n"
+			"	out_color = in_color;                     \n"
+			"	gl_Position = vec4( in_position, 0.0f, 1.0f );  \n"
+			"}											  \n" 
+		};
+		
+		const GLchar FragmentSource[] = {
+			"#version 330 core 							  \n"
+			"in vec3 in_color;							  \n"
+			"											  \n"
+			"out vec4 fcolor;							  \n"
+			"void main(){  							      \n"
+			"	fcolor = vec4( in_color,0.0f );			  \n"
 			"}											  \n" 
 		};
 		
