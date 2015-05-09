@@ -16,6 +16,8 @@ namespace Engine
 				int width, height;
 			};
 		
+			typedef SScreen SMouse;
+		
 			CPlatform();
 			~CPlatform();
 
@@ -28,6 +30,26 @@ namespace Engine
 			bool CreateWindow(int width, int height, const char *title, bool fullscreen);
 			void DestroyWindow();
 			
+			enum EKeyState : int
+			{
+				Released = GLFW_RELEASE,
+				Pressed = GLFW_PRESS
+			};
+			
+			enum EMouseKey : int 
+			{
+				MouseKeyLeft   = GLFW_MOUSE_BUTTON_LEFT,
+				MouseKeyRight  = GLFW_MOUSE_BUTTON_RIGHT,
+				MouseKeyCenter = GLFW_MOUSE_BUTTON_MIDDLE
+			};
+			
+			EKeyState Keyboard( const char key );
+			
+			EKeyState MouseKey( const EMouseKey& key );
+			
+			//Get mouse position
+			SMouse MousePosition();
+				
 			//Get screen res
 			SScreen ScreenResolution();
 			

@@ -69,11 +69,29 @@ namespace Engine
 		return (glfwWindowShouldClose(p_window));
 	}
 	
+	CPlatform::EKeyState CPlatform::Keyboard( const char key )
+	{
+		return static_cast<CPlatform::EKeyState>( glfwGetKey ( p_window, (int)key ));
+	}
+			
+	
 	CPlatform::SScreen CPlatform::ScreenResolution()
 	{
 		SScreen screen;
 		glfwGetFramebufferSize(p_window, &screen.width, &screen.height);
 		return ( screen );
+	}
+	
+	CPlatform::SMouse CPlatform::MousePosition()
+	{
+		double x,y;
+		glfwGetCursorPos( p_window, &x, &y );
+		return ( SMouse{(int)x,(int)y} );
+	}
+	
+	CPlatform::EKeyState CPlatform::MouseKey( const EMouseKey& key )
+	{
+		return static_cast<CPlatform::EKeyState>( glfwGetMouseButton( p_window, (int)key ) );
 	}
 	
 }

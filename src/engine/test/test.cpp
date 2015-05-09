@@ -108,7 +108,7 @@ int main( int args, char *argv[])
 		std::cout << SpriteProgram.Log() << std::endl;
 	}
 	
-	//Engine::CSCECamera Camera;
+	Engine::CSCECamera Camera;
 	//Engine::CSCEInstance Instance( &Camera );
 	
 	
@@ -128,6 +128,7 @@ int main( int args, char *argv[])
 		std::cout << SpriteRenderer->Program().Log() << std::endl;
 	}
 	
+	Camera.BindGPUProgram( &SpriteRenderer->Program(), 0 );
 	
 	//Upload sprites.... 
 	SpriteStorage->Upload( SpritesOfGods, sprite_count );
