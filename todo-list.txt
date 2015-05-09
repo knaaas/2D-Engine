@@ -1,3 +1,4 @@
 This is a list of shit that needs to be done
 
 CGPUStorage upload data to offset in enabled GPU buffer please :)
+Nope, write to CPU memory and then upload it. 
