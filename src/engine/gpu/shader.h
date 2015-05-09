@@ -59,6 +59,8 @@ namespace Engine
 			std::string Log();
 			
 			GLint Uniform( const std::string& name );
+			GLint UniformBlock( const std::string& name );
+			void  UniformBlock( GLuint location, GLuint index );
 			
 			static void Uniform( GLint location, const float& value );
 		

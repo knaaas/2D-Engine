@@ -1,4 +1,4 @@
-#include "instance.cpp"
+#include "instance.h"
 
 namespace Engine
 {
@@ -12,10 +12,10 @@ namespace Engine
 	{
 		
 	}
-				
-	template <typename T>
-	bool CSCEInstance::Initialize( CGPURenderer<T> *renderer )
+	
+	CSCECamera *CSCEInstance::Camera()
 	{
-		return p_camera->BindGPUProgram( renderer->m_program );
+		return p_camera;
 	}
+				
 }

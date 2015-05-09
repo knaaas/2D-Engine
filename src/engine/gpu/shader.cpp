@@ -104,6 +104,17 @@ namespace Engine
 		return result;
 	}
 	
+	
+	GLint CProgram::UniformBlock( const std::string& name )
+	{
+		return glGetUniformBlockIndex( m_programid, name.c_str() );
+	}
+	
+	void CProgram::UniformBlock( GLuint location, GLuint index )
+	{
+		return glUniformBlockBinding( m_programid, location, index );
+	}
+	
 	GLint CProgram::Uniform( const std::string& name )
 	{
 		return glGetUniformLocation( m_programid, name.c_str() );

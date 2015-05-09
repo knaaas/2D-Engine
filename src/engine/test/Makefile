@@ -2,7 +2,7 @@ CC = g++
 INCLUDE = ../src/
 CFLAGS = -Wall -c -std=c++0x -g -I$(INCLUDE)
 CLIB = -lopengl32 -lglew32 -lglfw3
-SOURCES = test.cpp ../gpu/shader.cpp 
+SOURCES = test.cpp ../gpu/shader.cpp ../scene/camera.cpp ../scene/instance.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = out
 

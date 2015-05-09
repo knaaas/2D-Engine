@@ -24,6 +24,8 @@ namespace Engine
 			CSCEInstance( CSCECamera *camera );
 			~CSCEInstance();
 			
+			CSCECamera *Camera();
+			
 			/*
 				Make a renderer usable in this instance.
 				
@@ -39,6 +41,7 @@ namespace Engine
 		private:
 			CSCECamera *p_camera;
 	};
+	#include "instance.hpp"
 }
 
 #endif //ENGINE_SCENE_INSTANCE_H

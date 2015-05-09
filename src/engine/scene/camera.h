@@ -13,25 +13,32 @@ namespace Engine
 		private:
 			struct SCamera
 			{
+				SCamera(): zoom( 1.0f ){}
 				glm::vec2 position;
 				float 	  zoom;
 			};
 			
 			SCamera m_state;
 			CGPUState<SCamera> m_gpu_state;
-			
-		public:
-			
+		
+			friend class CSCEInstance;
+		
 			/**
 				Tries to bind "sce_camera" uniform block
 				in program to the camera buffer. 
 			**/
 			bool BindGpuProgram(CProgram* program, GLuint location);
 			
+		
+		public:
+			CSCECamera();
+			
+		
 			
 			/**
 				Update camera GPU buffer. 
 				Should be done before rendering. 
+				Will be made private. 
 			**/
 			void UpdateGpuBuffer();
 			
@@ -42,7 +49,7 @@ namespace Engine
 			
 			float& Zoom();
 			const float& Zoom() const;
-	}
+	};
 }
 
-#endf //ENGINE_SCENE_CAMERA_H
+#endif //ENGINE_SCENE_CAMERA_H

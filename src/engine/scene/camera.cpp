@@ -2,6 +2,9 @@
 
 namespace Engine
 {
+	CSCECamera::CSCECamera()
+	: m_gpu_state( m_state )
+	{}
 	
 	bool CSCECamera::BindGpuProgram(CProgram* program, GLuint index)
 	{
@@ -10,8 +13,9 @@ namespace Engine
 		if( uniform_index == -1)
 			return false;
 		
-		program->BindBlock( uniform_index, index );
-		m_state.Bind( index );
+		program->UniformBlock( uniform_index, index );
+		m_gpu_state.Bind( index );
+		return true;
 	}
 			
 	
@@ -36,9 +40,9 @@ namespace Engine
 		return m_state.zoom;
 	}
 	
-	void+ CSCECamera::UpdateGpuBuffer()
+	void CSCECamera::UpdateGpuBuffer()
 	{
-		m_gpu_state.state( m_state );
+		m_gpu_state.State( m_state );
 	}
 	
 }

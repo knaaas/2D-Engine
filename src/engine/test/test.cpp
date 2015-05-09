@@ -10,6 +10,10 @@
 #include "../gpu/instance.h"
 #include "../gpu/renderer.h"
 
+#include "../scene/camera.h"
+#include "../scene/instance.h"
+
+
 
 struct SSprite
 {
@@ -83,8 +87,14 @@ int main( int args, char *argv[])
 		"#version 330 core							  \n"
 		"layout(location = 0) in vec2 in_position;    \n"
 		"layout(location = 1) in vec2 in_size; 	      \n"
+		"											  \n"
+		"uniform sce_camera{						  \n"
+		"	vec2 camera;							  \n"
+		"   float zoom;								  \n"
+		"};		  									  \n"
+		"											  \n"
 		"void main(){							      \n"
-		"	gl_Position = vec4( in_position, 0, 1 );  \n"
+		"	gl_Position = vec4( in_position + camera, 0, 1 );  \n"
 		"}											  \n" 
 	};
 	
@@ -109,7 +119,7 @@ int main( int args, char *argv[])
 	}
 	
 	Engine::CSCECamera Camera;
-	//Engine::CSCEInstance Instance( &Camera );
+	Engine::CSCEInstance Instance( &Camera );
 	
 	
 	const size_t sprite_count = 128;
@@ -128,7 +138,10 @@ int main( int args, char *argv[])
 		std::cout << SpriteRenderer->Program().Log() << std::endl;
 	}
 	
-	Camera.BindGPUProgram( &SpriteRenderer->Program(), 0 );
+	Instance.Initialize( SpriteRenderer );
+	Instance.Camera()->Position() = glm::vec2( 0.25, 0.25 );
+	Instance.Camera()->UpdateGpuBuffer();
+	
 	
 	//Upload sprites.... 
 	SpriteStorage->Upload( SpritesOfGods, sprite_count );
