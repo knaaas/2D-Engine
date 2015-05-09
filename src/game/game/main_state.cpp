@@ -2,11 +2,14 @@
 
 namespace Game
 {
+	
+	
 	const char *emenu_option[] = {
 		"play",
 		"help",
 		"exit"
 	};
+	const size_t emenu_option_count = 3;
 	
 	CMainState::CMainState() 
 	{
@@ -30,7 +33,7 @@ namespace Game
 	
 	const EMenuState CMainState::ReadMenuInput()
 	{
-		GUI::CMenu menu( emenu_option, 3 );
+		GUI::CMenu menu( emenu_option, emenu_option_count );
 		const EMenuState state = static_cast<const EMenuState>(  menu.Result() );
 		return state;
 	}

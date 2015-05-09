@@ -17,6 +17,7 @@ namespace Game
 			virtual State::CState::SReturn Run();
 			
 		private:
+			CGame m_game;
 	};
 }
 

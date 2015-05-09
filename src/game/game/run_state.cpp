@@ -12,13 +12,14 @@ namespace Game
 			
 	void CRunState::Initialize( void )
 	{
+		m_game.Initialize( 800, 600, "GameWindow", false );
+
 	}
 			
 	State::CState::SReturn CRunState::Run()
 	{
 		//Run the game here..
-		CGame Game;
-		Game.Run();
+		m_game.Run();
 		return State::CState::SReturn();
 	}
 }
